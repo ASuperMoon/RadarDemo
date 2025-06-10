@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1300</width>
+    <height>841</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="ControlGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>10</y>
+      <width>711</width>
+      <height>821</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>控制参数</string>
+    </property>
+    <widget class="QGroupBox" name="blockGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>691</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>单指令</string>
+     </property>
+     <widget class="QPushButton" name="PowerOnApplyPushButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>开机</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="PowerOffApplyPushButton">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>40</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>关机</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="blocksGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>691</width>
+       <height>521</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>多指令</string>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>651</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="6" column="2">
+        <widget class="QLabel" name="StartSacn3Label_8">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="EmptyLabel_3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="EmptyLabel_2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLineEdit" name="EndSacn1LineEdit"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="EmptyLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="RCorrectionLabel">
+         <property name="text">
+          <string>斜距修正(m)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="HeightMinLabel">
+         <property name="text">
+          <string>高度下限(m)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="StartSacn2LineEdit"/>
+       </item>
+       <item row="3" column="3">
+        <widget class="QLineEdit" name="EndSacn3LineEdit"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="NorthCorrectionLabel">
+         <property name="text">
+          <string>偏北修正(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="RadarHightLineEdit"/>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="DistanceMinLabel">
+         <property name="text">
+          <string>距离下限(m)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="StartSacn1Label">
+         <property name="text">
+          <string>起始扇区1(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="QLabel" name="ECorrectionLabel">
+         <property name="text">
+          <string>俯仰修正(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="RCorrectionLineEdit"/>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="SpeedMinLabel">
+         <property name="text">
+          <string>速度下限(m/s)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="EndSacn2Label">
+         <property name="text">
+          <string>结束扇区2(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="3">
+        <widget class="QLineEdit" name="ECorrectionLineEdit"/>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="NorthCorrectionLineEdit"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="StartSacn0Label">
+         <property name="text">
+          <string>起始扇区0(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="StartSacn0LineEdit"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="StartSacn3LineEdit"/>
+       </item>
+       <item row="11" column="2">
+        <widget class="QLabel" name="SpeedMaxLabel">
+         <property name="text">
+          <string>速度上限(m/s)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="3">
+        <widget class="QLineEdit" name="RadarLonLineEdit"/>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="EndSacn3Label">
+         <property name="text">
+          <string>结束扇区3(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="2">
+        <widget class="QLabel" name="HeightMaxLabel">
+         <property name="text">
+          <string>高度上限(m)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="StartSacn2Label">
+         <property name="text">
+          <string>起始扇区2(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="2">
+        <widget class="QLabel" name="RadarLonLabel">
+         <property name="text">
+          <string>雷达纬度(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="2">
+        <widget class="QLabel" name="DistanceMaxLabel">
+         <property name="text">
+          <string>距离上限(m)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="EndSacn0LineEdit"/>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="RadarHightLabel">
+         <property name="text">
+          <string>雷达高度(m)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="EndSacn0Label">
+         <property name="text">
+          <string>结束扇区0(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="RadarLngLabel">
+         <property name="text">
+          <string>雷达经度(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="EndSacn1Label">
+         <property name="text">
+          <string>结束扇区1(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="StartSacn3Label">
+         <property name="text">
+          <string>起始扇区3(°)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="StartSacn1LineEdit"/>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="RadarLngLineEdit"/>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="EndSacn2LineEdit"/>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLineEdit" name="SpeedMinLineEdit"/>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLineEdit" name="HeightMinLineEdit"/>
+       </item>
+       <item row="13" column="1">
+        <widget class="QLineEdit" name="DistanceMinLineEdit"/>
+       </item>
+       <item row="11" column="3">
+        <widget class="QLineEdit" name="SpeedMaxLineEdit"/>
+       </item>
+       <item row="12" column="3">
+        <widget class="QLineEdit" name="HeightMaxLineEdit"/>
+       </item>
+       <item row="13" column="3">
+        <widget class="QLineEdit" name="DistanceMaxLineEdit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="ApplyPushButton">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>480</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>应用</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="LoggerGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>650</y>
+       <width>691</width>
+       <height>161</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>日志记录</string>
+     </property>
+     <widget class="QTextEdit" name="LoggerTextEdit">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>691</width>
+        <height>141</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="ComGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>561</width>
+      <height>821</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>协议解析</string>
+    </property>
+    <widget class="QTextEdit" name="RadarStateTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>50</y>
+       <width>261</width>
+       <height>451</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="TrackLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>雷达航迹</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="StateLabel">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>30</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>雷达状态</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="RadarTrackTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>251</width>
+       <height>451</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="PointLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>510</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>雷达点迹</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="RadarPointTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>530</y>
+       <width>541</width>
+       <height>191</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="PTZLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>730</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>雷达过界</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="RadarPTZTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>750</y>
+       <width>541</width>
+       <height>61</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
