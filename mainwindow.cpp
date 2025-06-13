@@ -154,61 +154,61 @@ void MainWindow::dataProcess(QByteArray data)
      if(head == 0XCC5555CC){
         memcpy(&track, data.data(), sizeof(track));
         QString trackStr = "";
-        trackStr += QString("时间戳: %1\n").arg(track.time);
-        trackStr += QString("信噪比: %1\n").arg(track.xinZaoBi);
+        trackStr += QString("时间戳: %1%2\n").arg(track.time).arg("ms");
+        trackStr += QString("信噪比: %1%2\n").arg(track.xinZaoBi).arg("dB");
         trackStr += QString("起批标志: %1\n").arg(track.qiPiFlag);
         trackStr += QString("目标的编号: %1\n").arg(track.aimID);
         trackStr += QString("跟踪次数: %1\n").arg(track.aimCount);
-        trackStr += QString("航向角: %1\n").arg(track.aimselfHangXiang / 100.0f ,0, 'f', 2);
-        trackStr += QString("俯仰角: %1\n").arg(track.aimfE / 10.0f ,0, 'f', 2);
-        trackStr += QString("距离: %1\n").arg(track.aimfR);
-        trackStr += QString("目标航速: %1\n").arg(track.aimSelfVp / 10.0f ,0, 'f', 2);
-        trackStr += QString("目标速度: %1\n").arg(track.aimVp / 10.0f ,0, 'f', 2);
-        trackStr += QString("目标偏北角: %1\n").arg(track.aimfA / 100.0f ,0, 'f', 2);
-        trackStr += QString("目标纬度: %1\n").arg(track.B ,0, 'f', 6);
-        trackStr += QString("目标经度: %1\n").arg(track.L ,0, 'f', 6);
-        trackStr += QString("目标高度: %1\n").arg(track.aimHeight ,0, 'f', 2);
+        trackStr += QString("航向角: %1%2\n").arg(track.aimselfHangXiang / 100.0f ,0, 'f', 2).arg("°");
+        trackStr += QString("俯仰角: %1%2\n").arg(track.aimfE / 100.0f ,0, 'f', 2).arg("°");
+        trackStr += QString("距离: %1%2\n").arg(track.aimfR).arg("m");
+        trackStr += QString("目标航速: %1%2\n").arg(track.aimSelfVp / 10.0f ,0, 'f', 2).arg("m/s");
+        trackStr += QString("目标速度: %1%2\n").arg(track.aimVp / 10.0f ,0, 'f', 2).arg("m/s");
+        trackStr += QString("目标偏北角: %1%2\n").arg(track.aimfA / 100.0f ,0, 'f', 2).arg("°");
+        trackStr += QString("目标纬度: %1%2\n").arg(track.B ,0, 'f', 6).arg("°");
+        trackStr += QString("目标经度: %1%2\n").arg(track.L ,0, 'f', 6).arg("°");
+        trackStr += QString("目标高度: %1%2\n").arg(track.aimHeight ,0, 'f', 2).arg("m");
         trackStr += QString("发送模式: %1\n").arg(track.sendMode);
         trackStr += QString("选择状态: %1\n").arg(track.selectSata);
         trackStr += QString("类型: %1\n").arg(track.targetKind);
-        trackStr += QString("可信度: %1\n").arg(track.livingChance);
-        trackStr += QString("目标幅度: %1\n").arg(track.aimFuDu);
-        trackStr += QString("目标RCS: %1\n").arg(track.aimRcs);
-        trackStr += QString("目标方位角: %1\n").arg(track.aimFangWeiJiao / 100.0f ,0, 'f', 6);
+        trackStr += QString("可信度: %1%2\n").arg(track.livingChance).arg("%");
+        trackStr += QString("目标幅度: %1%2\n").arg(track.aimFuDu).arg("dBm");
+        trackStr += QString("目标RCS: %1%2\n").arg(track.aimRcs / 1000.0f ,0, 'f',4).arg("m^2");
+        trackStr += QString("目标方位角: %1%2\n").arg(track.aimFangWeiJiao / 100.0f ,0, 'f', 6).arg("°");
         trackStr += QString("威胁等级: %1\n").arg(track.dangerLevel);
         trackStr += QString("波位号: %1\n").arg(track.beamNum);
         trackStr += QString("帧计数: %1\n").arg(track.framCnt);
-        trackStr += QString("噪声幅度: %1\n").arg(track.noiseAmp);
+        trackStr += QString("噪声幅度: %1%2\n").arg(track.noiseAmp).arg("dBm");
         ui->RadarTrackTextEdit->setText(trackStr);
      }
      // 状态协议
      else if(head == 0x55DDDD55){
         memcpy(&state, data.data(), sizeof(state));
         QString stateStr = "";
-        stateStr += QString("时间戳: %1\n").arg(state.time);
+        stateStr += QString("时间戳: %1%2\n").arg(state.time).arg("ms");
         stateStr += QString("工作模式: %1\n").arg(state.mode);
         stateStr += QString("积累点数: %1\n").arg(state.fft);
         stateStr += QString("雷达波形: %1\n").arg(state.wave);
         stateStr += QString("激励开关: %1\n").arg(state.drivingSwitch);
-        stateStr += QString("接收衰减: %1\n").arg(state.recReduce);
-        stateStr += QString("检测门限: %1\n").arg(state.jianCethreshold);
-        stateStr += QString("门限因子: %1\n").arg(state.thresholdFactor);
+        stateStr += QString("接收衰减: %1%2\n").arg(state.recReduce).arg("dB");
+        stateStr += QString("检测门限: %1%2\n").arg(state.jianCethreshold).arg("dBm");
+        stateStr += QString("门限因子: %1%2\n").arg(state.thresholdFactor).arg("dB");
         stateStr += QString("雷达连接状态: %1\n").arg(state.radarConnectSata);
         stateStr += QString("丢包数: %1\n").arg(state.losePackCount);
-        stateStr += QString("角度修正: %1\n").arg(state.angleCorrect / 100.0f ,0, 'f', 2);
-        stateStr += QString("转台方位角: %1\n").arg(state.zhuanTaiFangWeiAngle / 100.0f ,0, 'f', 2);
-        stateStr += QString("雷达经度: %1\n").arg(state.radarJingDu,0, 'f', 6);
-        stateStr += QString("雷达纬度: %1\n").arg(state.radarWeiDu,0, 'f', 6);
-        stateStr += QString("雷达高度: %1\n").arg(state.radarHeight,0, 'f', 2);
-        stateStr += QString("速度上限: %1\n").arg(state.vMax / 10.0f , 0, 'f', 2);
-        stateStr += QString("速度下限: %1\n").arg(state.vMin / 10.0f ,0, 'f', 2);
-        stateStr += QString("高度下限: %1\n").arg(state.hMin);
-        stateStr += QString("高度上限: %1\n").arg(state.hMax);
-        stateStr += QString("距离下限: %1\n").arg(state.dMin);
-        stateStr += QString("距离上限: %1\n").arg(state.dMax);
-        stateStr += QString("起始角度: %1\n").arg(state.startAngle / 100.0f ,0, 'f',2);
-        stateStr += QString("终止角度: %1\n").arg(state.endAngle / 100.0f ,0, 'f', 2);
-        stateStr += QString("阵面电流: %1\n").arg(state.arrayCurrent);
+        stateStr += QString("角度修正: %1%2\n").arg(state.angleCorrect / 100.0f ,0, 'f', 2).arg("°");
+        stateStr += QString("转台方位角: %1%2\n").arg(state.zhuanTaiFangWeiAngle / 100.0f ,0, 'f', 2).arg("°");
+        stateStr += QString("雷达经度: %1%2\n").arg(state.radarJingDu,0, 'f', 6).arg("°");
+        stateStr += QString("雷达纬度: %1%2\n").arg(state.radarWeiDu,0, 'f', 6).arg("°");
+        stateStr += QString("雷达高度: %1%2\n").arg(state.radarHeight,0, 'f', 2).arg("m");
+        stateStr += QString("速度上限: %1%2\n").arg(state.vMax / 10.0f , 0, 'f', 2).arg("m/s");
+        stateStr += QString("速度下限: %1%2\n").arg(state.vMin / 10.0f ,0, 'f', 2).arg("m/s");
+        stateStr += QString("高度下限: %1%2\n").arg(state.hMin).arg("m");
+        stateStr += QString("高度上限: %1%2\n").arg(state.hMax).arg("m");
+        stateStr += QString("距离下限: %1%2\n").arg(state.dMin).arg("m");
+        stateStr += QString("距离上限: %1%2\n").arg(state.dMax).arg("m");
+        stateStr += QString("起始角度: %1%2\n").arg(state.startAngle / 100.0f ,0, 'f',2).arg("°");
+        stateStr += QString("终止角度: %1%2\n").arg(state.endAngle / 100.0f ,0, 'f', 2).arg("°");
+        stateStr += QString("阵面电流: %1%2\n").arg(state.arrayCurrent / 10.0f,0, 'f',1).arg("A");
         stateStr += QString("电流状态: %1\n").arg(state.arrayCurrentState);
         ui->RadarStateTextEdit->setText(stateStr);
      }
@@ -216,25 +216,25 @@ void MainWindow::dataProcess(QByteArray data)
      else if(head == 0x55CCCC55){
         memcpy(&ptz, data.data(), sizeof(ptz));
         QString ptzStr = "";
-        ptzStr += QString("时间戳: %1\n").arg(ptz.time);
-        ptzStr += QString("转台机械方位角: %1\n").arg(ptz.radarAngle / 100.0f ,0, 'f', 2);
-        ptzStr += QString("转台偏北方位角: %1\n").arg(ptz.radarPianBeiAngle / 100.0f ,0, 'f', 2);
+        ptzStr += QString("时间戳: %1%2\n").arg(ptz.time).arg("");
+        ptzStr += QString("转台机械方位角: %1%2\n").arg(ptz.radarAngle / 100.0f ,0, 'f', 2).arg("°");
+        ptzStr += QString("转台偏北方位角: %1%2\n").arg(ptz.radarPianBeiAngle / 100.0f ,0, 'f', 2).arg("°");
         ui->RadarPTZTextEdit->setText(ptzStr);
      }
      // 点迹协议
      else if(head == 0xAA5555AA){
         memcpy(&point, data.data(), sizeof(point));
         QString pointStr = "";
-        pointStr += QString("时间戳: %1\n").arg(point.time);
+        pointStr += QString("时间戳: %1%2\n").arg(point.time).arg("ms");
         pointStr += QString("目标个数: %1\n").arg(point.targetNum);
         pointStr += QString("点迹信息：\n");
         // 循环输出目标点信息
         for (int i = 0; i < point.targetNum; ++i) {
-            pointStr += QString(" 方位角: %1").arg(point.pointOut[i].fA);
-            pointStr += QString("仰角: %1").arg(point.pointOut[i].fE);
-            pointStr += QString("距离: %1").arg(point.pointOut[i].fR);
-            pointStr += QString("速度: %1").arg(point.pointOut[i].Vp);
-            pointStr += QString("幅度: %1\n").arg(point.pointOut[i].fuDu);
+            pointStr += QString(" 方位角: %1%2").arg(point.pointOut[i].fA / 100.0f ,0, 'f', 2).arg("°");
+            pointStr += QString("仰角: %1%2").arg(point.pointOut[i].fE / 100.0f ,0, 'f', 2).arg("°");
+            pointStr += QString("距离: %1%2").arg(point.pointOut[i].fR).arg("m");
+            pointStr += QString("速度: %1%2").arg(point.pointOut[i].Vp / 10.0f ,0, 'f', 2).arg("m/s");
+            pointStr += QString("幅度: %1%2\n").arg(point.pointOut[i].fuDu).arg("dBm");
         }
         ui->RadarPointTextEdit->setText(pointStr);
      }
