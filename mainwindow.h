@@ -233,5 +233,10 @@ private:
     RadarPoint point;
     RadarPTZ ptz;
     UIConfig config;
+
+    QString localIP;
+    qint32 localPort;
+    QString remoteIP;
+    qint32 remotePort;
 };
 #endif // MAINWINDOW_H

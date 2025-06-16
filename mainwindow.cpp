@@ -3,6 +3,7 @@
 #include "Net/udpclass.h"
 #include <QSettings>
 #include <QDateTime>
+#include <QtMath>
 #include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -14,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Radar Simulator");
     controlInit();
     radarUDP = new UDPClass();
-    radarUDP->Bind("127.0.0.1",20001);
+    radarUDP->Bind(localIP,localPort);
     connect(radarUDP,&UDPClass::DataReceived,this,&MainWindow::dataProcess);
 }
 
@@ -48,6 +49,16 @@ void MainWindow::controlInit()
    config.heightMax = (float)settings->value("UIStruct/heightMax",1000).toDouble();
    config.distanceMin = (float)settings->value("UIStruct/distanceMin",0).toDouble();
    config.distanceMax = (float)settings->value("UIStruct/distanceMax",100000).toDouble();
+
+   localIP = settings->value("UDP/localIP","127.0.0.1").toString();
+   localPort = settings->value("UDP/localPort",20001).toInt();
+   remoteIP = settings->value("UDP/remoteIP","127.0.0.1").toString();
+   remotePort = settings->value("UDP/remotePort",20000).toInt();
+   settings->setValue("UDP/localIP", localIP);
+   settings->setValue("UDP/localPort", localPort);
+   settings->setValue("UDP/remoteIP", remoteIP);
+   settings->setValue("UDP/remotePort", remotePort);
+
    delete settings;
    settings = nullptr;
    configUIUpdate();
@@ -82,26 +93,26 @@ void MainWindow::configUpdate()
 // UI更新
 void MainWindow::configUIUpdate()
 {
-   ui->StartSacn0LineEdit->setText(QString::number(config.startScan0));
-   ui->StartSacn1LineEdit->setText(QString::number(config.startScan1));
-   ui->StartSacn2LineEdit->setText(QString::number(config.startScan2));
-   ui->StartSacn3LineEdit->setText(QString::number(config.startScan3));
+   ui->StartSacn0LineEdit->setText(QString::number(config.startScan0, 'f', 2));
+   ui->StartSacn1LineEdit->setText(QString::number(config.startScan1, 'f', 2));
+   ui->StartSacn2LineEdit->setText(QString::number(config.startScan2, 'f', 2));
+   ui->StartSacn3LineEdit->setText(QString::number(config.startScan3, 'f', 2));
 
-   ui->EndSacn0LineEdit->setText(QString::number(config.endScan0));
-   ui->EndSacn1LineEdit->setText(QString::number(config.endScan1));
-   ui->EndSacn2LineEdit->setText(QString::number(config.endScan2));
-   ui->EndSacn3LineEdit->setText(QString::number(config.endScan3));
+   ui->EndSacn0LineEdit->setText(QString::number(config.endScan0, 'f', 2));
+   ui->EndSacn1LineEdit->setText(QString::number(config.endScan1, 'f', 2));
+   ui->EndSacn2LineEdit->setText(QString::number(config.endScan2, 'f', 2));
+   ui->EndSacn3LineEdit->setText(QString::number(config.endScan3, 'f', 2));
 
-   ui->NorthCorrectionLineEdit->setText(QString::number(config.northCorrect));
-   ui->ECorrectionLineEdit->setText(QString::number(config.pitchCorrect));
+   ui->NorthCorrectionLineEdit->setText(QString::number(config.northCorrect, 'f', 2));
+   ui->ECorrectionLineEdit->setText(QString::number(config.pitchCorrect, 'f', 2));
    ui->RCorrectionLineEdit->setText(QString::number(config.distanceCorrect));
 
-   ui->RadarLngLineEdit->setText(QString::number(config.radarLng));
-   ui->RadarLonLineEdit->setText(QString::number(config.radarLon));
+   ui->RadarLngLineEdit->setText(QString::number(config.radarLng, 'f', 6));
+   ui->RadarLonLineEdit->setText(QString::number(config.radarLon, 'f', 6));
    ui->RadarHightLineEdit->setText(QString::number(config.radarHeight));
 
-   ui->SpeedMinLineEdit->setText(QString::number(config.speedMin));
-   ui->SpeedMaxLineEdit->setText(QString::number(config.speedMax));
+   ui->SpeedMinLineEdit->setText(QString::number(config.speedMin, 'f', 1));
+   ui->SpeedMaxLineEdit->setText(QString::number(config.speedMax, 'f', 1));
    ui->HeightMinLineEdit->setText(QString::number(config.heightMin));
    ui->HeightMaxLineEdit->setText(QString::number(config.heightMax));
    ui->DistanceMinLineEdit->setText(QString::number(config.distanceMin));
@@ -154,6 +165,8 @@ void MainWindow::dataProcess(QByteArray data)
      if(head == 0XCC5555CC){
         memcpy(&track, data.data(), sizeof(track));
         QString trackStr = "";
+        quint64 timeDif = QDateTime::currentDateTimeUtc().toMSecsSinceEpoch();
+        trackStr += QString("时间差: %1%2\n").arg( qAbs(track.time - timeDif)).arg("ms");
         trackStr += QString("时间戳: %1%2\n").arg(track.time).arg("ms");
         trackStr += QString("信噪比: %1%2\n").arg(track.xinZaoBi).arg("dB");
         trackStr += QString("起批标志: %1\n").arg(track.qiPiFlag);
@@ -254,7 +267,7 @@ void MainWindow::on_PowerOnApplyPushButton_clicked()
    control.blocks[0].data6 = 0; // 数据6
    control.blocks[0].data7 = 0; // 数据7
    QByteArray temData = control.serialize();
-   radarUDP->UDPSend(temData,"127.0.0.1",20000);
+   radarUDP->UDPSend(temData,remoteIP,remotePort);
    ui->LoggerTextEdit->append(QString("[INFO] %1 Control Power On! \r\n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")));
 }
 
@@ -272,7 +285,7 @@ void MainWindow::on_PowerOffApplyPushButton_clicked()
    control.blocks[0].data6 = 0; // 数据6
    control.blocks[0].data7 = 0; // 数据7
    QByteArray temData = control.serialize();
-   radarUDP->UDPSend(temData,"127.0.0.1",20000);
+   radarUDP->UDPSend(temData,remoteIP,remotePort);
    ui->LoggerTextEdit->append(QString("[INFO] %1 Control Power Off! \r\n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")));
 }
 
@@ -393,7 +406,7 @@ void MainWindow::on_ApplyPushButton_clicked()
    control.blocks[10].data6 = 0; // 数据6
    control.blocks[10].data7 = 0; // 数据7
    QByteArray temData = control.serialize();
-   radarUDP->UDPSend(temData,"127.0.0.1",20000);
+   radarUDP->UDPSend(temData,remoteIP,remotePort);
    ui->LoggerTextEdit->append(QString("[INFO] %1 Control Cmd Send! \r\n").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")));
 }
 
