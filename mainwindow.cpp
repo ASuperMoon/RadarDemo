@@ -251,6 +251,82 @@ void MainWindow::dataProcess(QByteArray data)
         }
         ui->RadarPointTextEdit->setText(pointStr);
      }
+     // 信处参数
+     else if(head == 0x55AAAA55){
+        memcpy(&spConfig, data.data(), sizeof(spConfig));
+        QString SPStr = "";
+        SPStr += QString("帧头 uint head: %1\n").arg(spConfig.head);
+        SPStr += QString("字节数 uint length: %1\n").arg(spConfig.length);
+        SPStr += QString("发射起始扇区 float emiteStartAngle0: %1\n").arg(spConfig.emiteStartAngle0);
+        SPStr += QString("发射终止扇区 float emiteEndAngle0: %1\n").arg(spConfig.emiteEndAngle0);
+        SPStr += QString("激励发射开关 int emiteswitch: %1\n").arg(spConfig.emiteswitch);
+        SPStr += QString("搜索模式 int scanMode: %1\n").arg(spConfig.scanMode);
+        SPStr += QString("频点 int freNum: %1\n").arg(spConfig.freNum);
+        SPStr += QString("信噪比门限 int snrTh: %1\n").arg(spConfig.snrTh);
+        SPStr += QString("检测门限 int ampTh: %1\n").arg(spConfig.ampTh);
+        SPStr += QString("杂波抑制带宽 int csBandwidth: %1\n").arg(spConfig.csBandwidth);
+        SPStr += QString("转台轴 int ptzAxi: %1\n").arg(spConfig.ptzAxi);
+        SPStr += QString("转台运动模式 int ptzMode: %1\n").arg(spConfig.ptzMode);
+        SPStr += QString("转台定位角度 float ptzLocateAngle: %1\n").arg(spConfig.ptzLocateAngle);
+        SPStr += QString("转台扇扫中心 float ptzSectCent: %1\n").arg(spConfig.ptzSectCent);
+        SPStr += QString("转台扇扫单侧角度 float ptzSectSize: %1\n").arg(spConfig.ptzSectSize);
+        SPStr += QString("转台速度 float ptzSpeed: %1\n").arg(spConfig.ptzSpeed);
+        SPStr += QString("stc使能 int stc_en: %1\n").arg(spConfig.stc_en);
+        SPStr += QString("stc选择 int stc_sel: %1\n").arg(spConfig.stc_sel);
+        SPStr += QString("时序模式 int frame_acc_en: %1\n").arg(spConfig.frame_acc_en);
+        SPStr += QString("校验位 int checkSum: %1\n").arg(spConfig.checkSum);
+        qDebug()<<SPStr;
+     }
+     // 数处参数
+     else if(head == 0x55222255){
+         memcpy(&dpconfig, data.data(), sizeof(dpconfig));
+         QString DPStr = "";
+         DPStr += QString("帧头 uint head: %1\n").arg(dpconfig.head);
+         DPStr += QString("字节数 uint length: %1\n").arg(dpconfig.length);
+         DPStr += QString("雷达类型 uchar radarKind: %1\n").arg(dpconfig.radarKind);
+         DPStr += QString("保留 uchar resv0: %1\n").arg(dpconfig.resv0);
+         DPStr += QString("雷达ID uint radarID: %1\n").arg(dpconfig.radarID);
+         DPStr += QString("保留 uint resv1: %1\n").arg(dpconfig.resv1);
+         DPStr += QString("数处处理版本 uint digitalEdition: %1\n").arg(dpconfig.digitalEdition);
+         DPStr += QString("显控版本 uint terminalEdition: %1\n").arg(dpconfig.terminalEdition);
+         DPStr += QString("调波束跟踪 ushort beamTracking: %1\n").arg(dpconfig.beamTracking);
+         DPStr += QString("套波门选择 ushort waveGateTracking: %1\n").arg(dpconfig.waveGateTracking);
+         DPStr += QString("扇形跟踪选择  ushort sectorTracking: %1\n").arg(dpconfig.sectorTracking);
+         DPStr += QString("指定跟踪航迹号 ushort followAimNum: %1\n").arg(dpconfig.followAimNum);
+         DPStr += QString("搜索跟踪选择 ushort scanOrfollowSwitch: %1\n").arg(dpconfig.scanOrfollowSwitch);
+         DPStr += QString("航迹起始选择 ushort traceStartConfig: %1\n").arg(dpconfig.traceStartConfig);
+         DPStr += QString("杂波图开关 uint pointMapEnable: %1\n").arg(dpconfig.pointMapEnable);
+         DPStr += QString("起始滑窗的分母 ushort traceStartN: %1\n").arg(dpconfig.traceStartN);
+         DPStr += QString("起始滑窗的分子 ushort traceStartM: %1\n").arg(dpconfig.traceStartM);
+         DPStr += QString("滤波模型 ushort filteringModel: %1\n").arg(dpconfig.filteringModel);
+         DPStr += QString("关联准则 ushort relationRule: %1\n").arg(dpconfig.relationRule);
+         DPStr += QString("消亡周期 int dieCycle: %1\n").arg(dpconfig.dieCycle);
+
+         DPStr += QString("处理距离上限 float rMax: %1\n").arg(dpconfig.rMax);
+         DPStr += QString("处理距离下限 float rMin: %1\n").arg(dpconfig.rMin);
+         DPStr += QString("处理速度上限 float vMax: %1\n").arg(dpconfig.vMax);
+         DPStr += QString("处理速度下限 float vMin: %1\n").arg(dpconfig.vMin);
+         DPStr += QString("处理高度上限 float hMax: %1\n").arg(dpconfig.hMax);
+         DPStr += QString("处理高度下限 float hMin: %1\n").arg(dpconfig.hMin);
+
+         DPStr += QString("仰角修正 short eCorrection: %1\n").arg(dpconfig.eCorrection);
+         DPStr += QString("距离修正 short rCorrection: %1\n").arg(dpconfig.rCorrection);
+         DPStr += QString("手动输入仰角值 short antennaElevation: %1\n").arg(dpconfig.antennaElevation);
+         DPStr += QString("偏北角修正 short pianBeiXiuZheng: %1\n").arg(dpconfig.pianBeiXiuZheng);
+         DPStr += QString("俯仰角选择 int antennaElevationSource: %1\n").arg(dpconfig.antennaElevationSource);
+         DPStr += QString("雷达经度 double radarLng: %1\n").arg(dpconfig.radarLng);
+         DPStr += QString("雷达纬度 double radarLat: %1\n").arg(dpconfig.radarLat);
+         DPStr += QString("雷达高度 float radarH: %1\n").arg(dpconfig.radarH);
+         DPStr += QString("是否插值 int interpolationEnable: %1\n").arg(dpconfig.interpolationEnable);
+         DPStr += QString("副瓣匿影 int sidelobeBlanking: %1\n").arg(dpconfig.sidelobeBlanking);
+         DPStr += QString("杂波图门限 float pointMapThreshold: %1\n").arg(dpconfig.pointMapThreshold);
+         DPStr += QString("数据开关 int dataSwitch: %1\n").arg(dpconfig.dataSwitch);
+         DPStr += QString("罗盘相关参数设置 int saveCompassData: %1\n").arg(dpconfig.saveCompassData);
+         DPStr += QString("数处界面显示开关 int digitalProShowSwitch: %1\n").arg(dpconfig.digitalProShowSwitch);
+         DPStr += QString("保留 int resv2: %1\n").arg(dpconfig.resv2);
+         DPStr += QString("校验位 int checkSum: %1\n").arg(dpconfig.checkSum);
+         qDebug()<<DPStr;
+     }
 }
 
 // 控制三  开机点击事件

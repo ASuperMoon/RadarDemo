@@ -183,6 +183,79 @@ struct RadarControl {
     }
 };
 
+// 回传信处
+struct SPConfig
+{
+    uint head;              // 帧头 0x55AAAA55
+    uint length;            // 字节数
+    float emiteStartAngle0; // 发射起始扇区 单位度
+    float emiteEndAngle0;   // 发射终止扇区 单位度
+    int emiteswitch;        // 激励发射开关
+    int scanMode;           // 搜索模式
+    int freNum;             // 频点
+    int snrTh;              // 信噪比门限
+    int ampTh;              // (幅度)检测门限
+    int csBandwidth;        // 杂波抑制带宽
+    int ptzAxi;             // 转台轴
+    int ptzMode;            // 转台运动模式
+    float ptzLocateAngle;   // 转台定位角度 单位度
+    float ptzSectCent;      // 转台扇扫中心 单位度
+    float ptzSectSize;      // 转台扇扫单侧角度 单位度
+    float ptzSpeed;         // 转台速度 度/秒
+    int stc_en;             // stc使能
+    int stc_sel;            // stc选择
+    int frame_acc_en;       // 时序模式
+    int reserve[26];
+    int checkSum;           // 校验位 校验和
+};
+
+// 回传数处
+struct DPConfig
+{
+    uint head;                 // 帧头
+    ushort length;             // 字节数
+    uchar radarKind;           // 雷达类型
+    uchar resv0;               // 保留
+    uint radarID;              // 雷达ID
+    uint resv1;                // 保留
+    uint digitalEdition;       // 数处处理版本
+    uint terminalEdition;      // 显控版本
+    ushort beamTracking;       // 调波束跟踪
+    ushort waveGateTracking;   // 套波门选择
+    ushort sectorTracking;     // 扇形跟踪选择
+    ushort followAimNum;       // 指定跟踪航迹号
+    ushort scanOrfollowSwitch; // 搜索跟踪选择
+    ushort traceStartConfig;   // 航迹起始选择
+    uint pointMapEnable;       // 杂波图开关
+    ushort traceStartN;        // 起始滑窗的分母
+    ushort traceStartM;        // 起始滑窗的分子
+    ushort filteringModel;     // 滤波模型
+    ushort relationRule;       // 关联准则
+    int dieCycle;              // 消亡周期 Int
+    float rMax;                // 处理距离上限
+    float rMin;                // 处理距离下限
+    float vMax;                // 处理速度上限
+    float vMin;                // 处理速度下限
+    float hMax;                // 处理高度上限
+    float hMin;                // 处理高度下限
+    short eCorrection;         // 仰角修正
+    short rCorrection;         // 距离修正
+    short antennaElevation;    // 手动输入仰角值
+    short pianBeiXiuZheng;     // 偏北角修正
+    int antennaElevationSource;// 俯仰角选择
+    double radarLng;           // 雷达经度
+    double radarLat;           // 雷达纬度
+    float radarH;              // 雷达高度
+    int interpolationEnable;   // 是否插值
+    int sidelobeBlanking;      // 副瓣匿影
+    float pointMapThreshold;   // 杂波图门限
+    int dataSwitch;            // 数据开关
+    int saveCompassData;       //罗盘相关参数设置
+    int digitalProShowSwitch;  //数处界面显示开关
+    int resv2;                 // 保留
+    int checkSum;              // 校验位
+};
+
 // UI结构体
 struct UIConfig {
   float startScan0;
@@ -232,6 +305,8 @@ private:
     RadarState state;
     RadarPoint point;
     RadarPTZ ptz;
+    SPConfig  spConfig;
+    DPConfig dpconfig;
     UIConfig config;
 
     QString localIP;
